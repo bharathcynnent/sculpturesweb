@@ -1,0 +1,99 @@
+.footer {
+  background-color: #FAF3EA;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+  border-radius: 40px 40px 0px 0px;
+  margin: 0px 70px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-left, .footer-middle, .footer-right {
+  flex: 1;
+  min-width: 250px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #6a4028;
+  margin-bottom: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #2f2f2f;
+  font-weight: 500;
+}
+
+.contact-button {
+  background-color: #835035;
+  color: #FAF3EA;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: default;
+}
+
+.footer-middle p {
+  margin: 0.3rem 0;
+  line-height: 1.4;
+}
+
+.footer-right .newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-right input {
+  padding: 0.5rem;
+  border: 1px solid #2f2f2f;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.footer-right button {
+  padding: 0.5rem;
+  background-color: #543219;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.footer-bottom {
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.footer-bottom a {
+  text-decoration: none;
+  color: #2f2f2f;
+  margin-left: 1rem;
+}
+
+.social-icons span {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+}

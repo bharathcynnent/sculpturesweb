@@ -1,0 +1,124 @@
+.Contact-header{
+  font-size: 3.125rem;
+  font-family: poppins;
+  font-weight: bold;
+  color: #2B2024;
+  padding: 1rem 5.625rem;
+}
+.contact-wrapper {
+  display: flex;
+  padding: 1rem 5.625rem;
+  font-family: 'Arial', sans-serif;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 10px rgba(0,0,0,0.1); */
+  margin: 0 4.375rem 2.5rem 0;
+  
+}
+
+.contact-left {
+  flex: 1;
+  background-color: #523C1E;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: .625rem;
+  font-size: 1.75rem;
+  font-family: poppins;
+  font-weight: semi-bold;
+  color: #FFFFFF;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #C9C9C9;
+  margin-bottom: 20px;
+  margin-left: .3125rem;
+}
+
+.contact-info p {
+  margin: 10px 0;
+  font-size: 1rem;
+  font-family: poppins;
+  color: #FFFFFF;
+  font-weight: regular;
+  margin-bottom: 2.5rem;
+
+}
+
+.contact-info span {
+  margin-right: 10px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  font-size: 20px;
+  margin-top: 40px;
+}
+
+.contact-right {
+  flex: 2;
+  padding: 30px;
+  background-color: white;
+  border-radius: 0 10px 10px 0;
+  padding: 1.875rem 1.875rem 1.875rem 5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+input, textarea, select {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px;
+  font-size: 14px;
+  outline: none;
+  background-color: transparent;
+}
+
+textarea {
+  resize: none;
+}
+
+.radio-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.send-button {
+  background-color: #6a4723;
+  color: white;
+  padding:  .9375rem 3rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  align-self: flex-end;
+  cursor: pointer;
+  font-weight: 100;
+}
+
+.send-button:hover {
+  background-color: #4a321b;
+}

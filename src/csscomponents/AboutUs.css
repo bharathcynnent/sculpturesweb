@@ -1,0 +1,94 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin-bottom: 1.25rem;
+}
+
+.top-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 30px;
+  background-color: transparent;
+}
+
+.content-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: nowrap;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.side-images {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+   flex-shrink: 0;
+}
+
+.side-images img {
+  width: 9.375rem;
+  height: 9.375rem;
+  object-fit: cover;
+}
+
+.center-content {
+  text-align: center;
+  flex: 1; /* Take available remaining space */
+  padding: 0 20px;
+  min-width: 280px;
+}
+
+.center-content h2 {
+  font-size: 4.5rem;
+  font-family: Abhaya Libre;
+  letter-spacing: 5%;
+  color: #323334;
+  font-weight: regular;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stats .number {
+  font-size: 2.125rem;
+  font-family: poppins;
+  font-weight: bold;
+  color: #835035;
+}
+
+.stats .label {
+  font-size: 1.5rem;
+  font-family: poppins;
+  font-weight: bold;
+  color: #3F3E3E;
+}
+
+
+.side-images.left {
+  margin-left: -210px;
+}
+
+.side-images.right {
+  margin-right: -150px;
+}
+
+.aboutus-header{
+  text-align: left;
+  margin-bottom: 3rem;
+  font-size: 3.125rem;
+  color: #2B2024;
+  font-family: poppins;
+  font-weight: bold;
+  margin-left: 4rem;
+}

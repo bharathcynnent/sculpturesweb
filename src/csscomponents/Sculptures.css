@@ -1,0 +1,88 @@
+.sculptures-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.sculptures-title {
+    font-size: 5rem;
+    font-family: poppins;
+    font-weight: bolder;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    margin-left: 4rem;
+}
+
+.sculptures-description {
+  margin-bottom: 1rem;
+  color: #5E5E5E;
+  font-size: 1rem;
+  font-family: poppins;
+  font-weight: regular;
+  text-align: left;
+  margin-left: 4rem;
+}
+
+.explore-button {
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  background-color: #835035;
+  color: #F5F5F5;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1rem;
+  display: flex;
+  margin-left: 4rem;
+
+}
+
+.sculptures-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.gallery-thumbnails {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 315px;
+  height: 300px;
+  padding: 0 25rem ;
+  white-space: nowrap;
+  gap: 3rem;
+
+}
+
+.gallery-thumb {
+  height: 250px;
+  width: auto;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  border-radius: 8px;
+}
+
+.gallery-thumb.active,
+.gallery-thumb:hover {
+  transform: scale(1.1);
+  border: 2px solid #2D2E5F;
+}
+
+.gallery-preview {
+  flex-shrink: 0;
+  width: 400px;
+  height: auto;
+}
+
+.preview-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.sculptures-background{
+  background-color: #F7F8F4;
+  margin-top: 5rem;
+}

@@ -1,0 +1,128 @@
+.shop-container {
+  padding-top: 4.6875rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.shop-main{
+  background-color: #F9F1E7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.shop-header {
+  background-image: url('../../public/assets/backgroundimageshop.png');
+  padding: 220px 10px 10px 10px;
+  margin-bottom: .625rem;
+
+}
+
+.filters select {
+  margin-left: 10px;
+  padding: 6px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.pagination {
+  margin: 30px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background: #F9F1E7;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination .active {
+  background: #835035;
+  color: white;
+}
+
+.filters select {
+  margin-left: 10px;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-card {
+  position: relative;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.product-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.action-buttons {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.buy-btn, .like-btn {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.buy-btn:hover {
+  background-color: #25D366; /* WhatsApp green */
+  color: white;
+  border-color: #25D366;
+}
+
+.like-btn:hover {
+  background-color: #ff3e6c; /* Heart pink */
+  color: white;
+  border-color: #ff3e6c;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #f00;
+  color: #fff;
+  padding: 3px 7px;
+  font-size: 12px;
+  border-radius: 4px;
+}

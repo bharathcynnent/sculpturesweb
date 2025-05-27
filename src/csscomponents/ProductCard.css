@@ -1,0 +1,44 @@
+.product-card {
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  background: #fff;
+  position: relative;
+}
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.product-card .badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+}
+
+.badge.sale {
+  background-color: #e67e22;
+}
+
+.badge.new {
+  background-color: #27ae60;
+}
+
+.price {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.price del {
+  margin-left: 5px;
+  color: gray;
+  font-weight: normal;
+}
