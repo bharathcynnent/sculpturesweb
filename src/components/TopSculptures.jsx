@@ -1,26 +1,29 @@
 import React from "react";
 import "../csscomponents/TopSculptures.css";
+import topSculp1 from "../../public/assets/topsculp1.png";
+import topSculp2 from "../../public/assets/topsculp2.png";
+import topSculp3 from "../../public/assets/topsculp3.jpg";
 
 const sculptures = [
   {
     title: "Stone Sculpture",
     description:
       "Stone sculpture is a piece of art carved or shaped from natural stone, such as granite, limestone, or sandstone. These sculptures are durable and have been used for centuries to create monuments, religious icons",
-    img: "../../public/assets/topsculp1.png",
+    img: topSculp1,
     reverse: false,
   },
   {
     title: "Marble Sculpture",
     description:
       "Marble sculpture is a three-dimensional artwork carved from marble, known for its smooth finish and ability to hold fine details. Used since ancient times, marble sculptures are valued for their beauty, durability architecture.",
-    img: "../../public/assets/topsculp2.png",
+    img: topSculp2,
     reverse: true,
   },
   {
     title: "Black Marble",
     description:
       "Black marble sculpture is a carved artwork made from black marble, a dense and polished stone known for its deep, rich color and subtle veining. These sculptures offer a striking and elegant appearance, often used in modern art.",
-    img: "../../public/assets/topsculp3.jpg",
+    img: topSculp3,
     reverse: false,
   },
 ];

@@ -16,7 +16,7 @@ export default function Cart() {
   const createWhatsAppMessage = () => {
     if (cartItems.length === 0) return "Your liked products list is empty.";
 
-    let message = "Hello, I am interested in the following products:%0A";
+    let message = "Hello, I am interested in the following statues:%0A";
     cartItems.forEach((item, i) => {
       message += `${i + 1}. ${item.title} - Qty: ${item.quantity || 1}, Price: Rs. ${(item.price * (item.quantity || 1)).toFixed(2)}%0A`;
     });

@@ -7,13 +7,13 @@ const ProductCard = ({ product, onLike }) => {
   const [hovered, setHovered] = useState(false);
 
   const handleBuyNow = () => {
-    const message = `Hi, I'm interested in "${title}" priced at ₹${price.toLocaleString()}`;
+    const message = `Hi, I'm interested in "${title}" statue it priced at ₹${price.toLocaleString()}`;
     const whatsappUrl = `https://wa.me/919360652355?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleLike = () => {
-    onLike(product); // Send to parent (Shop.jsx)
+    onLike(product);
   };
 
   return (

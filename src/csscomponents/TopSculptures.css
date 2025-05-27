@@ -82,7 +82,7 @@
 @media (max-width: 768px) {
 
   .reverse {
-    flex-direction: column; /* Prevents flipping on mobile */
+    flex-direction: column;
   }
 
   .sculpture-content h2 {
