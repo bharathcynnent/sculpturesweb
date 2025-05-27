@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "../csscomponents/cart.css";
+import useCartStore from "../stores/cartStore"; // adjust path accordingly
 
-export default function Cart({ cartItems, setCartItems }) {
-  const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+export default function Cart() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const cartItems = useCartStore((state) => state.cartItems);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * (item.quantity || 1),
     0
   );
 
-  // Create WhatsApp message text
   const createWhatsAppMessage = () => {
     if (cartItems.length === 0) return "Your liked products list is empty.";
 
     let message = "Hello, I am interested in the following products:%0A";
-
     cartItems.forEach((item, i) => {
       message += `${i + 1}. ${item.title} - Qty: ${item.quantity || 1}, Price: Rs. ${(item.price * (item.quantity || 1)).toFixed(2)}%0A`;
     });
@@ -26,14 +26,35 @@ export default function Cart({ cartItems, setCartItems }) {
   };
 
   const handleCheckout = () => {
-    const phoneNumber = "919360652355"; // Replace with your WhatsApp number (country code + number, no + or 00)
+    const phoneNumber = "919360652355";
     const text = createWhatsAppMessage();
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`;
     window.open(whatsappUrl, "_blank");
   };
 
+  if (!isVisible) return null;
+
   return (
     <div className="cart-container">
+      <button
+        className="close-btn"
+        onClick={() => setIsVisible(false)}
+        aria-label="Close Cart"
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: "transparent",
+          border: "none",
+          fontSize: "20px",
+          cursor: "pointer",
+          color: "#555",
+          fontWeight: "bold",
+        }}
+      >
+        ×
+      </button>
+
       <h2>Liked Products</h2>
       <hr />
       <div className="cart-items">
@@ -52,7 +73,7 @@ export default function Cart({ cartItems, setCartItems }) {
               </div>
               <button
                 className="remove-btn"
-                onClick={() => removeItem(item.id)}
+                onClick={() => removeFromCart(item.id)}
               >
                 ×
               </button>
@@ -70,4 +91,3 @@ export default function Cart({ cartItems, setCartItems }) {
     </div>
   );
 }
-

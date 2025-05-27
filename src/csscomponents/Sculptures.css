@@ -49,7 +49,6 @@
   flex-direction: row;
   overflow: hidden;
   width: 315px;
-  height: 300px;
   padding: 0 25rem ;
   white-space: nowrap;
   gap: 3rem;
@@ -86,3 +85,157 @@
   background-color: #F7F8F4;
   margin-top: 5rem;
 }
+
+/* .sculptures-container {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.sculptures-title {
+  font-size: 3rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.sculptures-description {
+  margin-bottom: 1rem;
+  color: #5E5E5E;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 1rem;
+  max-width: 90%;
+}
+
+.explore-button {
+  margin-bottom: 2rem;
+  padding: 0.8rem 1.6rem;
+  background-color: #835035;
+  color: #F5F5F5;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-left: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sculptures-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.gallery-thumbnails {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+  white-space: nowrap;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.gallery-thumb {
+  height: auto;
+  max-height: 180px;
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.3s;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.gallery-thumb.active,
+.gallery-thumb:hover {
+  transform: scale(1.1);
+  border: 2px solid #2D2E5F;
+}
+
+.gallery-preview {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 400px;
+}
+
+.preview-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+.sculptures-background {
+  background-color: #F7F8F4;
+  padding: 5rem 5.625rem 2rem 5.625rem;
+
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .sculptures-background{
+  background-color: #F7F8F4;
+  margin-top: 7rem;
+}
+  .sculptures-title {
+    font-size: 2.5rem;
+    margin-left: 1rem;
+    text-align: center;
+  }
+
+  .sculptures-description {
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .explore-button {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gallery-preview {
+    max-width: 90%;
+  }
+
+  .gallery-thumbnails {
+    gap: 0.5rem;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .gallery-thumb {
+    max-height: 120px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .sculptures-background{
+  background-color: #F7F8F4;
+  margin-top: 7rem;
+}
+  .sculptures-title {
+    font-size: 2rem;
+  }
+
+  .sculptures-description {
+    font-size: 0.9rem;
+  }
+
+  .explore-button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .gallery-thumb {
+    max-height: 100px;
+  }
+} 

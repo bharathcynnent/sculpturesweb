@@ -1,6 +1,6 @@
 import React from 'react';
 import '../csscomponents/Footer.css';
-
+import { FaTwitter, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 const Footer = () => {
   return (
     <footer className="footer">
@@ -34,10 +34,16 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>© 2025 Logobly. All Rights Reserved.</p>
         <a href="#">Privacy Policy</a>
-        <div className="social-icons">
-          <span>🐦</span>
-          <span>📸</span>
-          <span>📱</span>
+        <div className="socials-icons">
+          <a href="https://twitter.com/yourUsername" target="_blank" rel="noopener noreferrer">
+              <FaTwitter />
+            </a>
+            <a href="https://instagram.com/yourUsername" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
+            <a href="https://wa.me/919533556733" target="_blank" rel="noopener noreferrer">
+              <FaWhatsapp />
+            </a>
         </div>
       </div>
     </footer>

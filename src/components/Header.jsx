@@ -3,7 +3,7 @@ import '../csscomponents/Header.css';
 import logo from '../../public/assets/react.svg';
 import { FaSearch, FaShoppingCart, FaUser, FaBars } from 'react-icons/fa';
 
-const Header = ({ onNavigate  }) => {
+const Header = ({ onNavigate, onCartClick  }) => {
   const [flippedLink, setFlippedLink] = useState(null);
   const [navOpen, setNavOpen] = useState(false);
 
@@ -11,7 +11,7 @@ const Header = ({ onNavigate  }) => {
     setFlippedLink(index);
     onNavigate[label]();
     setTimeout(() => setFlippedLink(null), 800);
-    setNavOpen(false); // close menu on click
+    setNavOpen(false);
   };
 
   
@@ -41,7 +41,7 @@ const Header = ({ onNavigate  }) => {
 
       <div className="header-right">
         <span className="icon" title="Search"><FaSearch /></span>
-        <span className="icon" title="Cart" ><FaShoppingCart /></span>
+        <span className="icon" title="Cart" onClick={onCartClick}><FaShoppingCart /></span>
         <span className="icon" title="Admin"><FaUser /></span>
       </div>
     </header>

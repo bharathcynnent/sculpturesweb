@@ -10,7 +10,6 @@
   padding: 1rem 5.625rem;
   font-family: 'Arial', sans-serif;
   border-radius: 10px;
-  /* box-shadow: 0 4px 10px rgba(0,0,0,0.1); */
   margin: 0 4.375rem 2.5rem 0;
   
 }
@@ -121,4 +120,95 @@ textarea {
 
 .send-button:hover {
   background-color: #4a321b;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .contact-wrapper {
+    flex-direction: column;
+    padding: 1rem 2rem;
+    margin: 0 2rem;
+  }
+
+  .contact-left,
+  .contact-right {
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .contact-right {
+    padding: 20px;
+  }
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icons a {
+  font-size: 24px;
+  color: whitesmoke;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #1B1B1B;
+}
+
+
+@media screen and (max-width: 768px) {
+  .Contact-header {
+    font-size: 2rem;
+    padding: 1rem 2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .send-button {
+    align-self: stretch;
+    text-align: center;
+    width: 100%;
+  }
+
+  .contact-left,
+  .contact-right {
+    font-size: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contact-wrapper {
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+
+  .Contact-header {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .contact-info p,
+  .social-icons {
+    font-size: 0.875rem;
+  }
+
+  .radio-options {
+    flex-direction: column;
+  }
 }

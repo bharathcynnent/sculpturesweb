@@ -1,74 +1,74 @@
+/* Base container */
 .shop-container {
-  padding-top: 4.6875rem;
-  max-width: 1200px;
-  margin: auto;
+  padding: 4rem 1rem 2rem 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-.shop-main{
+/* For very large screens (1200px+) center content */
+@media (min-width: 1200px) {
+  .shop-container {
+    max-width: 2440px; /* Increase max-width */
+    padding: 4rem 2rem;
+  }
+}
+
+/* Header */
+.shop-header {
+  background-image: url('../../public/assets/backgroundimageshop.png');
+  background-size: cover;
+  background-position: center;
+  padding: 40vh 1rem 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #000000;
+}
+
+/* Shop Main Bar */
+.shop-main {
   background-color: #F9F1E7;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding: 10px;
+  flex-wrap: wrap;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
 }
 
-.shop-header {
-  background-image: url('../../public/assets/backgroundimageshop.png');
-  padding: 220px 10px 10px 10px;
-  margin-bottom: .625rem;
-
-}
-
-.filters select {
-  margin-left: 10px;
-  padding: 6px;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.pagination {
-  margin: 30px;
-  text-align: center;
-}
-
-.pagination button {
-  margin: 0 5px;
-  padding: 8px 12px;
-  border: none;
-  background: #F9F1E7;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.pagination .active {
-  background: #835035;
-  color: white;
+/* Filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .filters select {
-  margin-left: 10px;
-  padding: 6px 8px;
+  padding: 0.5rem 1rem;
+  min-width: 160px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.pagination button {
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
 }
 
+/* Product Card */
 .product-card {
-  position: relative;
-  padding: 10px;
+  padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 12px;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease;
+  background: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .image-wrapper {
@@ -82,6 +82,18 @@
   display: block;
 }
 
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #f00;
+  color: #fff;
+  padding: 3px 7px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+/* Action Buttons */
 .action-buttons {
   position: absolute;
   bottom: 10px;
@@ -91,7 +103,8 @@
   gap: 8px;
 }
 
-.buy-btn, .like-btn {
+.buy-btn,
+.like-btn {
   background-color: white;
   border: 1px solid #ccc;
   padding: 6px 10px;
@@ -105,24 +118,77 @@
 }
 
 .buy-btn:hover {
-  background-color: #25D366; /* WhatsApp green */
+  background-color: #25D366;
   color: white;
   border-color: #25D366;
 }
 
 .like-btn:hover {
-  background-color: #ff3e6c; /* Heart pink */
+  background-color: #ff3e6c;
   color: white;
   border-color: #ff3e6c;
 }
 
-.badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background-color: #f00;
-  color: #fff;
-  padding: 3px 7px;
-  font-size: 12px;
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: none;
+  background: #F9F1E7;
   border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pagination .active {
+  background: #835035;
+  color: white;
+}
+
+/* Medium Screens */
+@media (max-width: 1024px) {
+  .shop-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filters {
+    width: 100%;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+/* Small Screens */
+@media (max-width: 600px) {
+  .shop-header {
+    padding: 20vh 1rem 1rem;
+  }
+
+  .filters select {
+    width: 100%;
+  }
+
+  .buy-btn, .like-btn {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+
+  .product-card {
+    padding: 0.75rem;
+  }
 }

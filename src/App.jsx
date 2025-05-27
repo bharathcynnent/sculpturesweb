@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sculptures from './components/Sculptures';
@@ -7,6 +7,8 @@ import TopSculptures from './components/TopSculptures';
 import ContactUs from './components/ContactUs';
 import Shop from './pages/Shop';
 import Cart from './components/Cart';
+
+
 const App = () => {
   const sculpturesRef = useRef(null);
   const aboutUsRef = useRef(null);
@@ -14,7 +16,9 @@ const App = () => {
   const contactUsRef = useRef(null);
 
   const [currentPage, setCurrentPage] = useState('home');
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(false);
+
+  const toggleCartVisibility = () => setIsCartVisible(prev => !prev);
 
   const scrollToSection = (ref) => {
     setCurrentPage('home');
@@ -23,17 +27,6 @@ const App = () => {
     }, 50);
   };
 
-  // Optional: Close cart when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      const cart = document.getElementById('cart-popup');
-      if (cart && !cart.contains(e.target) && !e.target.closest('.icon-cart')) {
-        setIsCartOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   return (
     <div className="flex flex-col min-h-screen relative">
@@ -48,18 +41,10 @@ const App = () => {
           Shop: () => setCurrentPage('shop'),
           Contact: () => scrollToSection(contactUsRef),
         }}
-        onCartClick={() => setIsCartOpen((prev) => !prev)}
+        onCartClick={toggleCartVisibility}
       />
 
-      {/* Cart Popup */}
-      {isCartOpen && (
-        <div
-          id="cart-popup"
-          className="absolute top-16 right-6 z-50"
-        >
-          <Cart />
-        </div>
-      )}
+ {isCartVisible && <Cart onClose={() => setIsCartVisible(false)} />}
 
       <main className="flex-grow p-6">
         {currentPage === 'shop' ? (

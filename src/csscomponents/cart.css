@@ -1,6 +1,6 @@
 .cart-container {
   position: fixed;
-  top: 60px; /* Adjust if your header height is different */
+  top: 60px;
   right: 20px;
   width: 320px;
   background: white;
