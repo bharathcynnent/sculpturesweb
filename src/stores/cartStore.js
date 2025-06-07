@@ -1,25 +1,40 @@
-// src/stores/cartStore.js
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
-const useCartStore = create(
-  persist(
-    (set, get) => ({
-      cartItems: [],
-      addToCart: (item) => {
-        const existing = get().cartItems.find((i) => i.id === item.id);
-        if (existing) return;
-        set((state) => ({
-          cartItems: [...state.cartItems, { ...item, quantity: 1 }],
-        }));
-      },
-      removeFromCart: (id) =>
-        set((state) => ({
-          cartItems: state.cartItems.filter((item) => item.id !== id),
-        })),
+const useCartStore = create((set, get) => ({
+  cartItems: [],
+  likedItems: new Set(),
+
+  addToCart: (item) =>
+    set((state) => ({
+      cartItems: [...state.cartItems, item],
+      likedItems: new Set(state.likedItems).add(item.id),
+    })),
+
+  removeFromCart: (id) =>
+    set((state) => {
+      const newLikedItems = new Set(state.likedItems);
+      newLikedItems.delete(id);
+      return {
+        cartItems: state.cartItems.filter((item) => item.id !== id),
+        likedItems: newLikedItems,
+      };
     }),
-    { name: 'cart-storage' }
-  )
-);
+
+  likeItem: (id) =>
+    set((state) => {
+      const liked = new Set(state.likedItems);
+      liked.add(id);
+      return { likedItems: liked };
+    }),
+
+  unlikeItem: (id) =>
+    set((state) => {
+      const liked = new Set(state.likedItems);
+      liked.delete(id);
+      return { likedItems: liked };
+    }),
+
+  isLiked: (id) => get().likedItems.has(id),
+}));
 
 export default useCartStore;

@@ -1,11 +1,12 @@
 import React from 'react';
 import '../csscomponents/AboutUs.css';
 
-import topImage from '../../public/assets/test.svg';
-import leftImage1 from '../../public/assets/aboutusimage2.jpg';
-import leftImage2 from '../../public/assets/aboutusimage3.jpg';
-import rightImage1 from '../../public/assets/aboutusimage4.jpg';
-import rightImage2 from '../../public/assets/aboutusimage1.jpg';
+import topImage from '../assets/test.svg';
+import leftImage1 from '../assets/aboutusimage2.jpg';
+import leftImage2 from '../assets/aboutusimage3.jpg';
+import rightImage1 from '../assets/aboutusimage4.jpg';
+import rightImage2 from '../assets/aboutusimage1.jpg';
+
 
 const AboutUs = () => {
   return (

@@ -1,29 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../csscomponents/Sculptures.css';
-import img1 from '../../public/assets/image1.jpg';
-import img2 from '../../public/assets/image3.jpg';
-import img3 from '../../public/assets/react.svg';
-import img4 from '../../public/assets/image1.jpg';
+import img1 from '..//assets/aboutusimage1-removebg-preview.png';
+import img2 from '..//assets/aboutusimage2-removebg-preview.png';
+import img3 from '..//assets/aboutusimage3-removebg-preview.png';
+import img4 from '..//assets/aboutusimage4-removebg-preview.png';
 
 const images = [img1, img2, img3, img4];
 
-const Sculptures = () => {
+const Sculptures = ({ onNavigate }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const scrollRef = useRef(null);
-
-  // Auto-change preview image every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setSelectedImageIndex(prev => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  // Auto-scroll thumbnail container to the left
   useEffect(() => {
     const scrollContainer = scrollRef.current;
-
-    // Duplicate thumbnails for smooth loop
     if (scrollContainer && scrollContainer.children.length <= images.length) {
       images.forEach((img, index) => {
         const clone = scrollContainer.children[index].cloneNode(true);
@@ -55,31 +49,27 @@ const Sculptures = () => {
       <p className="sculptures-description">
         Discover everything you need to know about your plants, treat them with kindness and they will take care of you.
       </p>
-      <button className="explore-button">Explore More</button>
+      <button className="explore-button" onClick={() => onNavigate['Shop']()}>Explore More</button>
   </div>
-    <div className="sculptures-container">
-      <div className="sculptures-gallery">
-        <div className="gallery-thumbnails" ref={scrollRef}>
-          {images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt={`Sculpture ${index + 1}`}
-              className={`gallery-thumb ${selectedImageIndex === index ? 'active' : ''}`}
-              onClick={() => setSelectedImageIndex(index)}
-            />
-          ))}
+<div className="scroll-wrapper">
+  <div className="scroll-container" ref={scrollRef}>
+    <div className="scroll-content">
+      {images.concat(images).map((img, index) => (
+        <div className="card" key={index}>
+          <img src={img} alt={`Sculpture ${index + 1}`} />
         </div>
-
-        <div className="gallery-preview">
-          <img
-            src={images[selectedImageIndex]}
-            alt="Selected Sculpture"
-            className="preview-image"
-          />
-        </div>
-      </div>
+      ))}
     </div>
+  </div>
+  <div className="gallery-preview">
+    <img
+      src={images[selectedImageIndex]}
+      alt="Selected Sculpture"
+      className="preview-image"
+    />
+  </div>
+</div>
+
   </>);
 };
 

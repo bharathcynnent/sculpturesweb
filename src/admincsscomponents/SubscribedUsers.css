@@ -1,0 +1,116 @@
+/* Container styling */
+.subscribed-users-container {
+  padding: 2rem;
+  background-color: #f7f4ed; /* sculpture cream */
+  font-family: 'Georgia', serif;
+  color: #4b3d33;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(70, 60, 50, 0.1);
+  
+}
+
+/* subscribed-heading */
+.subscribed-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #3a2f28;
+  border-bottom: 2px solid #c2a97e;
+  display: inline-block;
+  padding-bottom: 6px;
+  letter-spacing: 1px;
+  font-family: 'Georgia', serif;
+}
+
+/* Loader animation */
+.loader {
+  border: 6px solid #e6ded3;
+  border-top: 6px solid #c2a97e; /* bronze */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* No user text */
+.no-users {
+  color: #7a6e60;
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Table styling */
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  background-color: #fffaf5;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(70, 60, 50, 0.05);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.responsive-table th,
+.responsive-table td {
+  border: 1px solid #e0d8cf;
+  padding: 14px 18px;
+  text-align: left;
+  font-family: 'Georgia', serif;
+}
+
+.responsive-table th {
+  background-color: #a1855e; /* sculpture navy */
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.responsive-table tr:nth-child(even) {
+  background-color: #f2ebe3;
+}
+
+.responsive-table tr:hover {
+  background-color: #f1e9dd;
+  transition: background-color 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .subscribed-heading {
+    font-size: 1.6rem;
+  }
+
+  .responsive-table th,
+  .responsive-table td {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-table th,
+  .responsive-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .subscribed-heading {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+}

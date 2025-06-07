@@ -16,7 +16,7 @@
 
 /* Header */
 .shop-header {
-  background-image: url('../../public/assets/backgroundimageshop.png');
+  background-image: url('..//assets/backgroundimageshop.png');
   background-size: cover;
   background-position: center;
   padding: 40vh 1rem 2rem;

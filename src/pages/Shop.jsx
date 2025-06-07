@@ -4,28 +4,39 @@ import Cart from '../components/Cart';
 import useCartStore from "../stores/cartStore";
 import { useState } from 'react';
 
+import shopimage1 from '../assets/aboutusimage1.jpg';
+import shopimage2 from '../assets/aboutusimage2.jpg';
+import shopimage3 from '../assets/aboutusimage3.jpg';
+import shopimage4 from '../assets/aboutusimage4.jpg';
+
 const allProducts = [
-  { id:'1', title: 'Sculpture', image: '/assets/aboutusimage1.jpg', price: 2000000 },
-  { id:'2', title: 'Little Krishna', image: '/assets/aboutusimage2.jpg', price: 2500000 },
-  { id:'3', title: 'Block', image: '/assets/aboutusimage3.jpg', price: 7000000 },
-  { id:'4', title: 'Stone', image: '/assets/aboutusimage4.jpg', price: 95000, badge: { text: 'New', type: 'new' } },
+  { id:'1', title: 'Sculpture', image: shopimage1, price: 2000000, category: 'Home Decors' },
+  { id:'2', title: 'Little Krishna', image: shopimage2, price: 2500000, category: 'God Sculptures' },
+  { id:'3', title: 'Block', image: shopimage3, price: 7000000, category: 'Garden Decors' },
+  { id:'4', title: 'Stone', image: shopimage4, price: 95000, badge: { text: 'New', type: 'new' }, category: 'Garden Decors' },
 ];
 
-const Shop = ({ products }) => {
+
+const Shop = () => {
   const [sortOption, setSortOption] = useState('');
   const [perPage, setPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [cart, setCart] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const addToCart = useCartStore((state) => state.addToCart);
 
  const handleLike = (product) => {
     addToCart(product);
   };
-  const sortedProducts = [...allProducts].sort((a, b) => {
-    if (sortOption === 'priceLowHigh') return a.price - b.price;
-    if (sortOption === 'priceHighLow') return b.price - a.price;
-    return 0;
-  });
+  const filteredProducts = selectedCategory === 'All'
+  ? allProducts
+  : allProducts.filter(p => p.category === selectedCategory);
+
+const sortedProducts = [...filteredProducts].sort((a, b) => {
+  if (sortOption === 'priceLowHigh') return a.price - b.price;
+  if (sortOption === 'priceHighLow') return b.price - a.price;
+  return 0;
+});
 
   const totalPages = Math.ceil(sortedProducts.length / perPage);
   const paginatedProducts = sortedProducts.slice((currentPage - 1) * perPage, currentPage * perPage);
@@ -33,6 +44,8 @@ const Shop = ({ products }) => {
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
+
+  
 
   return (
     <div className="shop-container">
@@ -49,6 +62,12 @@ const Shop = ({ products }) => {
               <option value="">Sort by</option>
               <option value="priceLowHigh">Price: Low to High</option>
               <option value="priceHighLow">Price: High to Low</option>
+            </select>
+            <select onChange={(e) => { setSelectedCategory(e.target.value); setCurrentPage(1); }}>
+            <option value="All">All Categories</option>
+            <option value="Home Decors">Home Decors</option>
+            <option value="Garden Decors">Garden Decors</option>
+            <option value="God Sculptures">God Sculptures</option>
             </select>
           </div>
         </div>
@@ -73,12 +92,9 @@ const Shop = ({ products }) => {
         ))}
         <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
       </div>
-
-      {/* Display Cart at the bottom */}
       <Cart cartItems={cart} setCartItems={setCart} />
     </div>
   );
 };
 
 export default Shop;
-

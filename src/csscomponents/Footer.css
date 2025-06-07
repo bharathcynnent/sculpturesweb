@@ -62,7 +62,7 @@
 
 .footer-right input {
   padding: 0.5rem;
-  border: 1px solid #2f2f2f;
+  border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
 }
@@ -166,4 +166,10 @@
   .footer-right button {
     font-size: 1rem;
   }
+}
+
+.error-message {
+  color:crimson;
+  margin-top: 8px;
+  font-size: 0.9rem;
 }

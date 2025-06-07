@@ -42,3 +42,7 @@
   color: gray;
   font-weight: normal;
 }
+.like-btn.liked {
+  color: red;
+  background-color: #ffe6e6;
+}

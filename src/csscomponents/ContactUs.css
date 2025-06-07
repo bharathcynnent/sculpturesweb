@@ -40,7 +40,7 @@
   font-size: 1rem;
   font-family: poppins;
   color: #FFFFFF;
-  font-weight: regular;
+  font-weight: 400;
   margin-bottom: 2.5rem;
 
 }
@@ -211,4 +211,52 @@ textarea {
   .radio-options {
     flex-direction: column;
   }
+}
+
+.error {
+  color: crimson;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+.send-button {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #6a4723;
+  color: white;
+  border: none;
+  cursor: pointer;
+  min-width: 150px;
+  transition: background 0.3s ease;
+}
+
+.send-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.tick {
+  font-size: 20px;
+  color: white;
+}
+
+.mandatory {
+  color: crimson;
+  font-size: 1rem;
 }

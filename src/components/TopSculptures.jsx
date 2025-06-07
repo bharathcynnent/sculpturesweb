@@ -1,8 +1,8 @@
 import React from "react";
 import "../csscomponents/TopSculptures.css";
-import topSculp1 from "../../public/assets/topsculp1.png";
-import topSculp2 from "../../public/assets/topsculp2.png";
-import topSculp3 from "../../public/assets/topsculp3.jpg";
+import topSculp1 from "..//assets/topsculp1.png";
+import topSculp2 from "..//assets/topsculp2.png";
+import topSculp3 from "..//assets/topsculp3.jpg";
 
 const sculptures = [
   {
@@ -28,7 +28,7 @@ const sculptures = [
   },
 ];
 
-export default function TopSculptures() {
+export default function TopSculptures({ onNavigate }) {
   return (
     <div className="sculpture-page">
       <h1 className="heading">Top Sculptures</h1>
@@ -41,12 +41,10 @@ export default function TopSculptures() {
           <div className="sculpture-content">
             <h2>{item.title}</h2>
             <p>{item.description}</p>
-            <button className="view-more">View more</button>
+            <button className="view-more" onClick={() => onNavigate['Shop']()}>View more</button>
           </div>
         </div>
       ))}
     </div>
   );
 }
-
-
