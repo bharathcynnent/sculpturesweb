@@ -19,24 +19,52 @@ const allProducts = [
 
 const Shop = () => {
   const [sortOption, setSortOption] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [perPage, setPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [cart, setCart] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+
   const [selectedCategory, setSelectedCategory] = useState('All');
   const addToCart = useCartStore((state) => state.addToCart);
 
  const handleLike = (product) => {
     addToCart(product);
   };
-  const filteredProducts = selectedCategory === 'All'
+
+
+const filteredProducts = (selectedCategory === 'All'
   ? allProducts
-  : allProducts.filter(p => p.category === selectedCategory);
+  : allProducts.filter(p => p.category === selectedCategory)
+).filter(p => {
+  const query = searchQuery.toLowerCase();
+  return (
+    p.title.toLowerCase().includes(query) ||
+    p.category.toLowerCase().includes(query) ||
+    p.price.toString().includes(query)
+  );
+});
 
 const sortedProducts = [...filteredProducts].sort((a, b) => {
   if (sortOption === 'priceLowHigh') return a.price - b.price;
   if (sortOption === 'priceHighLow') return b.price - a.price;
   return 0;
 });
+
+const handleSearchChange = (e) => {
+  const query = e.target.value.toLowerCase();
+  setSearchQuery(query);
+  setCurrentPage(1);
+
+  const matches = allProducts.filter(p =>
+    p.title.toLowerCase().includes(query) ||
+    p.category.toLowerCase().includes(query) ||
+    p.price.toString().includes(query)
+  );
+
+  setSuggestions(query ? matches.slice(0, 5) : []);
+};
+
 
   const totalPages = Math.ceil(sortedProducts.length / perPage);
   const paginatedProducts = sortedProducts.slice((currentPage - 1) * perPage, currentPage * perPage);
@@ -52,32 +80,65 @@ const sortedProducts = [...filteredProducts].sort((a, b) => {
       <div className="shop-header">
         <div className='shop-main'>
           <div>Showing {paginatedProducts.length} of {allProducts.length} results</div>
-          <div className="filters">
-            <select onChange={(e) => { setPerPage(Number(e.target.value)); setCurrentPage(1); }}>
-              <option value="6">Show 6</option>
-              <option value="9">Show 9</option>
-              <option value="12">Show 12</option>
-            </select>
-            <select onChange={(e) => setSortOption(e.target.value)}>
-              <option value="">Sort by</option>
-              <option value="priceLowHigh">Price: Low to High</option>
-              <option value="priceHighLow">Price: High to Low</option>
-            </select>
-            <select onChange={(e) => { setSelectedCategory(e.target.value); setCurrentPage(1); }}>
-            <option value="All">All Categories</option>
-            <option value="Home Decors">Home Decors</option>
-            <option value="Garden Decors">Garden Decors</option>
-            <option value="God Sculptures">God Sculptures</option>
-            </select>
-          </div>
+<div className="filters">
+  <div className="product-search-wrapper">
+    <input
+      type="text"
+      placeholder="Search products..."
+      value={searchQuery}
+      onChange={handleSearchChange}
+      className="product-search-input"
+    />
+    {searchQuery && suggestions.length > 0 && (
+  <ul className="suggestion-list">
+    {suggestions.map((item) => (
+      <li
+        key={item.id}
+        onClick={() => {
+          setSearchQuery(item.title.toLowerCase());
+          setSuggestions([]); 
+          setSelectedCategory("All");
+          setCurrentPage(1);
+        }}
+      >
+        {item.title}
+      </li>
+    ))}
+  </ul>
+)}
+  </div>
+
+  <select onChange={(e) => { setPerPage(Number(e.target.value)); setCurrentPage(1); }}>
+    <option value="6">Show 6</option>
+    <option value="9">Show 9</option>
+    <option value="12">Show 12</option>
+  </select>
+  <select onChange={(e) => setSortOption(e.target.value)}>
+    <option value="">Sort by</option>
+    <option value="priceLowHigh">Price: Low to High</option>
+    <option value="priceHighLow">Price: High to Low</option>
+  </select>
+  <select onChange={(e) => { setSelectedCategory(e.target.value); setCurrentPage(1); }}>
+    <option value="All">All Categories</option>
+    <option value="Home Decors">Home Decors</option>
+    <option value="Garden Decors">Garden Decors</option>
+    <option value="God Sculptures">God Sculptures</option>
+  </select>
+</div>
+
         </div>
       </div>
 
-      <div className="product-grid">
-        {paginatedProducts.map((product) => (
-        <ProductCard key={product.id} product={product} onLike={handleLike} />
-      ))}
-      </div>
+     <div className="product-grid">
+  {paginatedProducts.length > 0 ? (
+    paginatedProducts.map((product) => (
+      <ProductCard key={product.id} product={product} onLike={handleLike} />
+    ))
+  ) : (
+    <div className="no-products">No products found.</div>
+  )}
+</div>
+
 
       <div className="pagination">
         <button onClick={() => handlePageChange(currentPage - 1)}>Prev</button>

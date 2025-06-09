@@ -53,21 +53,26 @@ const WorkArchitecture = () => {
           From sketches to structure – our products go through a meticulous process that combines
           traditional craftsmanship with modern design. Every sculpture is handcrafted, ensuring uniqueness and precision.
         </p>
-        <div className="steps">
-          <div className="step">
-            <h3>1. Concept Design</h3>
-            <p>Initial sketches and digital modeling to plan dimensions and style.</p>
-          </div>
-          <div className="step">
-            <h3>2. Material Selection</h3>
-            <p>Choosing high-quality materials suited to form and durability.</p>
-          </div>
-          <div className="step">
-            <h3>3. Crafting</h3>
-            <p>Hands-on sculpting and assembly by our skilled artisans.</p>
-          </div>
-        </div>
+              <div className="steps-flow">
+  <div className="step-box appear step-1">
+    <h3>1. Concept Design</h3>
+    <p>Initial sketches and digital modeling to plan dimensions and style.</p>
+  </div>
+  <div className="arrow">➔</div>
+
+  <div className="step-box appear step-2">
+    <h3>2. Material Selection</h3>
+    <p>Choosing high-quality materials suited to form and durability.</p>
+  </div>
+  <div className="arrow">➔</div>
+
+  <div className="step-box appear step-3">
+    <h3>3. Crafting</h3>
+    <p>Hands-on sculpting and assembly by our skilled artisans.</p>
+  </div>
+</div>
       </section>
+
     </div>
   );
 };

@@ -5,6 +5,7 @@ export async function getUserData() {
   const fp = await FingerprintJS.load();
   const result = await fp.get();
   const visitorId = result.visitorId;
+  
 
 let ipAddress = '';
 try {
@@ -90,6 +91,7 @@ try {
     os: uaResult.os,
     device: guessDevice(),
     timestamp: new Date().toISOString(),
+    sessionStart: new Date(),
     timezoneOffset: new Date().getTimezoneOffset(),
     referrer: document.referrer,
   };

@@ -17,7 +17,7 @@ const App = () => {
   const sculpturesRef = useRef(null);
   const aboutUsRef = useRef(null);
   const contactUsRef = useRef(null);
-  const hasSentUserData = useRef(localStorage.getItem('userDataSent') === 'true');
+  const hasSentUserData = useRef(sessionStorage.getItem('userDataSent') === 'true');
 
   const [currentPage, setCurrentPage] = useState('home');
   const [isCartVisible, setIsCartVisible] = useState(false);
@@ -29,19 +29,27 @@ const App = () => {
 
 useEffect(() => {
   if (gdprAccepted && !hasSentUserData.current) {
+      hasSentUserData.current = true;
+      sessionStorage.setItem('userDataSent', 'true');
     getUserData().then(data => {
       setUserInfo(data);
-      try {
-        api.postUserData(data);
-        console.log('User data sent to backend');
-        hasSentUserData.current = true;
-        localStorage.setItem('userDataSent', 'true');
-      } catch (err) {
-        console.error('Failed to send user data:', err);
-      }
+      api.postUserData(data)
+        .then((response) => {
+          const visitCount = response?.data?.visitCount;
+          if (visitCount !== undefined) {
+            console.log('Visit count:', visitCount);
+          } else {
+            console.warn('Visit count not available in response:', response);
+          }
+
+        })
+        .catch((err) => {
+          console.error('Failed to send user data:', err);
+        });
     });
   }
 }, [gdprAccepted]);
+
 const handleAcceptGDPR = () => {
   localStorage.setItem('gdprAccepted', 'true');
   setGdprAccepted(true);
@@ -93,7 +101,7 @@ return (
         {isCartVisible && <Cart onClose={() => setIsCartVisible(false)} />}
         <main className="flex-grow p-6">
             {currentPage === 'shop' && <Shop />}
-            {currentPage === 'work' && <WorkArchitecture />} {/* ✅ New route */}
+            {currentPage === 'work' && <WorkArchitecture />}
             {currentPage === 'home' && (
               <>
                 <div ref={sculpturesRef}>
