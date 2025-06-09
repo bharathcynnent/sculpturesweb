@@ -1,5 +1,8 @@
 import React from "react";
 import "../csscomponents/TopSculptures.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import topSculp1 from "..//assets/topsculp1.png";
 import topSculp2 from "..//assets/topsculp2.png";
 import topSculp3 from "..//assets/topsculp3.jpg";
@@ -37,7 +40,12 @@ export default function TopSculptures({ onNavigate }) {
           className={`sculpture-section ${item.reverse ? "reverse" : ""}`}
           key={index}
         >
-          <img src={item.img} alt={item.title} className="sculpture-image" />
+          <LazyLoadImage
+            src={item.img}
+            alt={item.title}
+            effect="blur"
+            className="sculpture-image"
+          />
           <div className="sculpture-content">
             <h2>{item.title}</h2>
             <p>{item.description}</p>

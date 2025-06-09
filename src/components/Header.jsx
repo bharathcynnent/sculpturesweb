@@ -12,6 +12,8 @@ const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
   const [loginError, setLoginError] = useState('');
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [focusField, setFocusField] = useState(null);
+
 
   const handleClick = (label, index) => {
     setFlippedLink(index);
@@ -89,39 +91,50 @@ const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
         </div>
       </header>
       {showLogin && (
-        <div className="login-modal">
-          <div className="login-box animated-glass">
-            <h2 className="login-title">Admin Login</h2>
-            <div className="input-group">
-              <FaUser className="input-icon" />
-              <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div className="input-group">
-              <FaLock className="input-icon" />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            {loginError && <p className="loginerror">{loginError}</p>}
-            <div className="login-actions">
-              <button className="btn primary" onClick={handleLogin}>
-                Login
-              </button>
-              <button className="btn secondary" onClick={() => setShowLogin(false)}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="login-modal">
+    <div className="login-box animated-glass">
+      <h2 className="login-title">Admin Login</h2>
+
+      {/* Cartoon Face */}
+      <div className={`face-box ${focusField === 'username' ? 'looking-down' : focusField === 'password' ? 'eyes-closed' : ''}`}>
+  <div className="eyes"></div>
+  <div className="mouth"></div>
+</div>
+
+      <div className="input-group">
+        <FaUser className="input-icon" />
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onFocus={() => setFocusField('username')}
+          onBlur={() => setFocusField(null)}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+
+      <div className="input-group">
+        <FaLock className="input-icon" />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onFocus={() => setFocusField('password')}
+          onBlur={() => setFocusField(null)}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+
+      {loginError && <p className="loginerror">{loginError}</p>}
+
+      <div className="login-actions">
+        <button className="btn primary" onClick={handleLogin}>Login</button>
+        <button className="btn secondary" onClick={() => setShowLogin(false)}>Cancel</button>
+      </div>
+    </div>
+  </div>
+)}
+
     </>
   );
 };

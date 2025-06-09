@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { FaWhatsapp, FaHeart, FaRegHeart } from 'react-icons/fa';
 import '../csscomponents/ProductCard.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import useCartStore from '../stores/cartStore';
 
 const ProductCard = ({ product }) => {
@@ -25,7 +28,7 @@ const ProductCard = ({ product }) => {
       addToCart(product);
     } else {
       unlikeItem(id);
-      removeFromCart(id); // 🧼 Ensure it's removed from cart as well
+      removeFromCart(id);
     }
   };
 
@@ -36,7 +39,7 @@ const ProductCard = ({ product }) => {
       onMouseLeave={() => setHovered(false)}
     >
       <div className="image-wrapper">
-        <img src={image} alt={title} className="product-img" />
+        <LazyLoadImage src={image} alt={title} effect="blur" className="product-img" />
         {hovered && (
           <div className="action-buttons">
             <button className="buy-btn" onClick={handleBuyNow}>

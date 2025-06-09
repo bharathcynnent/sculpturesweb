@@ -301,3 +301,287 @@
     height: 32px; /* Slightly smaller logo */
   }
 }
+
+
+/* Modal backdrop */
+.login-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.6s ease-in-out;
+  padding: 20px;
+}
+
+/* Login Box */
+.login-box {
+  background: #e0d8cf;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #c2a97e;
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 380px;
+  color: #2d2e5f;
+  position: relative;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  animation: popIn 0.5s ease;
+}
+
+/* Title */
+.login-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #2d2e5f;
+  text-shadow: 1px 1px #c2a97e;
+}
+
+/* Input Group */
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  border: 2px solid #c2a97e;
+  border-radius: 12px;
+  background: #fff;
+  padding: 8px 12px;
+}
+
+.input-icon {
+  color: #2d2e5f;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  font-family: 'Comic Sans MS', cursive;
+  color: #2c3e50;
+}
+
+/* Error Text */
+.loginerror {
+  color: #d83c3c;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Buttons */
+.login-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Comic Sans MS', cursive;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background: #c2a97e;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(194, 169, 126, 0.4);
+}
+
+.btn.primary:hover {
+  background: #2d2e5f;
+  transform: scale(1.05);
+}
+
+.btn.secondary {
+  background: #dcdcdc;
+  color: #2c3e50;
+}
+
+.btn.secondary:hover {
+  background: #c0bebe;
+  transform: scale(1.05);
+}
+
+/* Face Box */
+.face-box {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  position: relative;
+  background: #ffe9b8;
+  border-radius: 50%;
+  border: 3px solid #2d2e5f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease;
+}
+
+.eyes {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  width: 40px;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  transform: translateX(-50%);
+}
+
+.eyes::before,
+.eyes::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #2d2e5f;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.mouth {
+  position: absolute;
+  bottom: 20%;
+  width: 16px;
+  height: 8px;
+  border-bottom: 3px solid #2d2e5f;
+  border-radius: 50%;
+}
+
+/* Eyes look down while typing username */
+.face-box.looking-down .eyes::before,
+.face-box.looking-down .eyes::after {
+  transform: translateY(6px);
+}
+
+/* Eyes close while typing password */
+.face-box.eyes-closed .eyes::before,
+.face-box.eyes-closed .eyes::after {
+  height: 2px;
+  background: #2d2e5f;
+  border-radius: 1px;
+  transform: none;
+}
+
+/* Animations */
+.face-box.looking-down {
+  animation: lookdown 1s ease-in-out infinite;
+}
+@keyframes lookdown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1.5px); }
+}
+
+.face-box.eyes-closed {
+  animation: nod-slow 2s ease-in-out infinite;
+}
+@keyframes nod-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Responsive Fixes */
+@media (max-width: 480px) {
+ .login-modal {
+    width: 100%;
+    top: 60px; /* equal to header height */
+    height: calc(100% - 60px); 
+    padding: 0; /* remove padding */
+    box-sizing: border-box;
+  }
+
+  .login-box {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  .login-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .input-group {
+    padding: 6px 10px;
+    margin-bottom: 14px;
+  }
+
+  .input-icon {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+
+  .input-group input {
+    font-size: 14px;
+  }
+
+  .login-actions {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .face-box {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 16px;
+  }
+
+  .eyes {
+    width: 32px;
+    height: 8px;
+    top: 28%;
+  }
+
+  .eyes::before,
+  .eyes::after {
+    width: 8px;
+    height: 8px;
+  }
+
+  .mouth {
+    width: 12px;
+    height: 6px;
+    bottom: 18%;
+    border-bottom-width: 2px;
+  }
+}

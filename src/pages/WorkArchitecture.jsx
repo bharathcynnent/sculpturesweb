@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import '../csscomponents/WorkArchitecture.css';
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import video1 from '../assets/workvideo1.mp4';
 import video2 from '../assets/workvideo2.mp4';
 import img1 from '../assets/work1.jpg';
@@ -31,7 +34,14 @@ const WorkArchitecture = () => {
         <h2>Our Architectural Creations</h2>
         <div className="image-gallery">
           {[img1, img2, img3].map((img, idx) => (
-            <img key={idx} src={img} alt={`Architecture ${idx + 1}`} onClick={() => handleImageClick(img)} />
+            <LazyLoadImage
+              key={idx}
+              src={img}
+              alt={`Architecture ${idx + 1}`}
+              effect="blur"
+              onClick={() => handleImageClick(img)}
+              className="lazy-gallery-image"
+            />
           ))}
         </div>
       </section>
@@ -40,8 +50,13 @@ const WorkArchitecture = () => {
       {selectedImage && (
         <div className="image-popup-overlay" onClick={closePopup}>
           <div className="image-popup" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={closePopup}>×</button>
-            <img src={selectedImage} alt="Enlarged architecture" />
+            <button className="arch-close-btn" onClick={closePopup}>×</button>
+            <LazyLoadImage
+              src={selectedImage}
+              alt="Enlarged architecture"
+              effect="blur"
+              className="popup-image"
+            />
           </div>
         </div>
       )}
@@ -53,26 +68,25 @@ const WorkArchitecture = () => {
           From sketches to structure – our products go through a meticulous process that combines
           traditional craftsmanship with modern design. Every sculpture is handcrafted, ensuring uniqueness and precision.
         </p>
-              <div className="steps-flow">
-  <div className="step-box appear step-1">
-    <h3>1. Concept Design</h3>
-    <p>Initial sketches and digital modeling to plan dimensions and style.</p>
-  </div>
-  <div className="arrow">➔</div>
+        <div className="steps-flow">
+          <div className="step-box appear step-1">
+            <h3>1. Concept Design</h3>
+            <p>Initial sketches and digital modeling to plan dimensions and style.</p>
+          </div>
+          <div className="arrow">➔</div>
 
-  <div className="step-box appear step-2">
-    <h3>2. Material Selection</h3>
-    <p>Choosing high-quality materials suited to form and durability.</p>
-  </div>
-  <div className="arrow">➔</div>
+          <div className="step-box appear step-2">
+            <h3>2. Material Selection</h3>
+            <p>Choosing high-quality materials suited to form and durability.</p>
+          </div>
+          <div className="arrow">➔</div>
 
-  <div className="step-box appear step-3">
-    <h3>3. Crafting</h3>
-    <p>Hands-on sculpting and assembly by our skilled artisans.</p>
-  </div>
-</div>
+          <div className="step-box appear step-3">
+            <h3>3. Crafting</h3>
+            <p>Hands-on sculpting and assembly by our skilled artisans.</p>
+          </div>
+        </div>
       </section>
-
     </div>
   );
 };
