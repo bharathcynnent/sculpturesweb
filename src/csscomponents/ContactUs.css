@@ -236,7 +236,7 @@ textarea {
   cursor: not-allowed;
 }
 
-.loader {
+.contactUs-loader {
   border: 3px solid #f3f3f3;
   border-top: 3px solid white;
   border-radius: 50%;

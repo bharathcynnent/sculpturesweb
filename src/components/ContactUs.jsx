@@ -5,7 +5,6 @@ import api from '../services/api';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -17,8 +16,7 @@ const ContactUs = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [submitStatus, setSubmitStatus] = useState('idle');
-
+  const [loading, setLoading] = useState(false);
 
   const validate = () => {
     const newErrors = {};
@@ -27,7 +25,7 @@ const ContactUs = () => {
 
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
     if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
-    else if (!phoneRegex.test(formData.phone)) newErrors.phone = 'Enter a valid phone number (at least 10 digits)';
+    else if (!phoneRegex.test(formData.phone)) newErrors.phone = 'Enter a valid phone number (10 digits)';
     if (formData.email && !emailRegex.test(formData.email)) newErrors.email = 'Enter a valid email address';
     if (!formData.message.trim()) newErrors.message = 'Message is required';
 
@@ -40,48 +38,46 @@ const ContactUs = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (validate()) {
-    setSubmitStatus('loading');
-    api.post('contact/submit', formData)
-      .then(() => {
-        setSubmitStatus('success');
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Message Sent!',
-          text: 'Your message has been sent successfully. We will get back to you soon!',
-          showConfirmButton: false,
-          timer: 2500,
-          background: '#f0f9ff',
-          color: '#333',
-          timerProgressBar: true,
-        });
-
-        setTimeout(() => {
-          setSubmitStatus('idle');
-          setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            message: '',
-            reason: 'General Inquiry',
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      setLoading(true);
+      api.post('contact/submit', formData)
+        .then(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Message Sent!',
+            text: 'Your message has been sent successfully. We will get back to you soon!',
+            showConfirmButton: false,
+            timer: 2500,
+            background: '#f0f9ff',
+            color: '#333',
+            timerProgressBar: true,
           });
-        }, 1500);
-      })
-      .catch(err => {
-        console.error(err);
-        setSubmitStatus('idle');
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong! Please try again later.',
+
+          setTimeout(() => {
+            setLoading(false);
+            setFormData({
+              firstName: '',
+              lastName: '',
+              email: '',
+              phone: '',
+              message: '',
+              reason: 'General Inquiry',
+            });
+          }, 1500);
+        })
+        .catch(err => {
+          console.error(err);
+          setLoading(false);
+          Swal.fire({
+            icon: 'error',
+            title: 'Sending Failed',
+            text: 'Something went wrong! Please try again later.',
+          });
         });
-      });
-  }
-};
+    }
+  };
 
   return (
     <>
@@ -128,16 +124,16 @@ const handleSubmit = (e) => {
               </div>
               <div className="form-group">
                 <label>Phone Number <span className='mandatory'>*</span></label>
-<input
-  type="text"
-  name="phone"
-  placeholder="9533556733"
-  value={formData.phone}
-  onChange={handleChange}
-  maxLength="10"
-  pattern="\d*"
-  inputMode="numeric"
-/>
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="9533556733"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  maxLength="10"
+                  pattern="\d*"
+                  inputMode="numeric"
+                />
                 {errors.phone && <span className="error">{errors.phone}</span>}
               </div>
             </div>
@@ -166,15 +162,9 @@ const handleSubmit = (e) => {
               {errors.message && <span className="error">{errors.message}</span>}
             </div>
 
-<button type="submit" className="send-button" disabled={submitStatus === 'loading'}>
-  {submitStatus === 'loading' ? (
-    <span className="loader"></span>
-  ) : submitStatus === 'success' ? (
-    <span className="tick">&#10003;</span>
-  ) : (
-    'Send Message'
-  )}
-</button>
+            <button type="submit" className="send-button" disabled={loading}>
+              {loading ? 'Sending...' : 'Send Message'}
+            </button>
           </form>
         </div>
       </div>

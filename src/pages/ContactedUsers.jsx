@@ -21,8 +21,14 @@ function ContactList() {
   return (
     <div className="contact-container">
       <h2>Contact Submissions</h2>
+
       {loading ? (
-        <div className="loading">Loading contacts...</div>
+        <div className="loader-wrapper">
+          <div className="custom-loader"></div>
+          <div className="loading-text">Loading contacts...</div>
+        </div>
+      ) : contacts.length === 0 ? (
+        <div className="no-contacts">No contact submissions found.</div>
       ) : (
         <div className="table-wrapper">
           <table className="contact-table">
@@ -42,7 +48,7 @@ function ContactList() {
                 <tr key={contact._id} style={{ animationDelay: `${i * 0.05}s` }}>
                   <td>{i + 1}</td>
                   <td>{contact.firstName} {contact.lastName}</td>
-                   <td>{contact.email?.trim() ? contact.email : 'No Email'}</td>
+                  <td>{contact.email?.trim() ? contact.email : 'No Email'}</td>
                   <td>{contact.phone}</td>
                   <td>{contact.message}</td>
                   <td>{contact.reason}</td>

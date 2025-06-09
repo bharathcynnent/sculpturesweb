@@ -23,7 +23,7 @@ const SubscribedUsers = () => {
       <h2 className="subscribed-heading">Subscribed Users</h2>
 
       {loading ? (
-        <div className="loader"></div>
+        <div className="subcribed-loader"></div>
       ) : users.length === 0 ? (
         <p className="no-users">No subscribers found.</p>
       ) : (

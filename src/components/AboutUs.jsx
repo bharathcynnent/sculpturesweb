@@ -1,12 +1,14 @@
 import React from 'react';
 import '../csscomponents/AboutUs.css';
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import topImage from '../assets/test.svg';
 import leftImage1 from '../assets/aboutusimage2.jpg';
 import leftImage2 from '../assets/aboutusimage3.jpg';
 import rightImage1 from '../assets/aboutusimage4.jpg';
 import rightImage2 from '../assets/aboutusimage1.jpg';
-
 
 const AboutUs = () => {
   return (
@@ -15,14 +17,14 @@ const AboutUs = () => {
       <div className="about-container">
         {/* Top Image */}
         <div className="top-image">
-          <img src={topImage} alt="Top" />
+          <LazyLoadImage src={topImage} alt="Top" effect="blur" />
         </div>
 
         <div className="content-section">
           {/* Left Images */}
           <div className="side-images left">
-            <img src={leftImage1} alt="Left 1" />
-            <img src={leftImage2} alt="Left 2" />
+            <LazyLoadImage src={leftImage1} alt="Left 1" effect="blur" />
+            <LazyLoadImage src={leftImage2} alt="Left 2" effect="blur" />
           </div>
 
           {/* Center Text Content */}
@@ -46,8 +48,8 @@ const AboutUs = () => {
 
           {/* Right Images */}
           <div className="side-images right">
-            <img src={rightImage1} alt="Right 1" />
-            <img src={rightImage2} alt="Right 2" />
+            <LazyLoadImage src={rightImage1} alt="Right 1" effect="blur" />
+            <LazyLoadImage src={rightImage2} alt="Right 2" effect="blur" />
           </div>
         </div>
       </div>
@@ -56,3 +58,4 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+

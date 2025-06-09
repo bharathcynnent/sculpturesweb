@@ -9,55 +9,59 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-const handleSubscribe = async () => {
-  if (!email && !phone) {
-    setError("Please provide either an email or phone number.");
-    return;
-  }
+  const handleSubscribe = async () => {
+    if (!email && !phone) {
+      setError("Please provide either an email or phone number.");
+      return;
+    }
 
-  const emailValid = email ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) : true;
-  const phoneValid = phone ? /^[0-9]{10}$/.test(phone) : true;
+    const emailValid = email ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) : true;
+    const phoneValid = phone ? /^[0-9]{10}$/.test(phone) : true;
 
-  if (!emailValid) {
-    setError("Invalid email address.");
-    return;
-  }
+    if (!emailValid) {
+      setError("Invalid email address.");
+      return;
+    }
 
-  if (!phoneValid) {
-    setError("Invalid 10-digit phone number.");
-    return;
-  }
+    if (!phoneValid) {
+      setError("Invalid 10-digit phone number.");
+      return;
+    }
 
-  try {
-    await api.postSubscription({ email, phone });
+    setLoading(true); // Start loader
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Subscribed!',
-      text: 'You’ve successfully subscribed to offers.',
-      background: '#f0fdf4',
-      color: '#14532d',
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: true,
-    });
+    try {
+      await api.postSubscription({ email, phone });
 
-    // Reset inputs after 1.5 sec
-    setTimeout(() => {
-      setEmail('');
-      setPhone('');
-      setError('');
-    }, 1500);
-  } catch (err) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Subscription Failed',
-      text: err.message || 'Something went wrong. Please try again later.',
-      confirmButtonColor: '#ef4444',
-    });
-  }
- };
+      Swal.fire({
+        icon: 'success',
+        title: 'Subscribed!',
+        text: 'You’ve successfully subscribed to offers.',
+        background: '#f0fdf4',
+        color: '#14532d',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+
+      setTimeout(() => {
+        setEmail('');
+        setPhone('');
+        setError('');
+      }, 1500);
+    } catch (err) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Subscription Failed. Please try again later.',
+        text: err.message || 'Something went wrong. Please try again later.',
+        confirmButtonColor: '#ef4444',
+      });
+    } finally {
+      setLoading(false); // Stop loader
+    }
+  };
 
   return (
     <footer className="footer">
@@ -97,7 +101,9 @@ const handleSubscribe = async () => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-            <button onClick={handleSubscribe}>Subscribe to Offers</button>
+            <button onClick={handleSubscribe} disabled={loading}>
+              {loading ? 'Subscribing...' : 'Subscribe to Offers'}
+            </button>
             {error && <p className="error-message">{error}</p>}
           </div>
         </div>
@@ -123,4 +129,3 @@ const handleSubscribe = async () => {
 };
 
 export default Footer;
-

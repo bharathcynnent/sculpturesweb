@@ -22,7 +22,7 @@
 }
 
 /* Loader animation */
-.loader {
+.subcribed-loader {
   border: 6px solid #e6ded3;
   border-top: 6px solid #c2a97e; /* bronze */
   border-radius: 50%;
