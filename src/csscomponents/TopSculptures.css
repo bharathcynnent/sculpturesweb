@@ -99,10 +99,40 @@
   }
 }
 
+@media (max-width: 768px) {
+  .sculpture-section {
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    text-align: center;  /* Center text */
+  }
+
+  .sculpture-content h2 {
+    font-size: 1.75rem;
+  }
+
+  .sculpture-content p {
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+
+  .sculpture-image {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
+  .sculpture-page {
+    padding: 1rem;
+}
   .heading {
     font-size: 2rem;
     margin-bottom: 2rem;
+    text-align: center; /* Center heading */
+  }
+
+  .sculpture-section {
+    text-align: center;
+    align-items: center;
   }
 
   .sculpture-content h2 {

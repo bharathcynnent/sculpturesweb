@@ -84,7 +84,7 @@ const handleSearchChange = (e) => {
   <div className="product-search-wrapper">
     <input
       type="text"
-      placeholder="Search products..."
+      placeholder="🔍Search products..."
       value={searchQuery}
       onChange={handleSearchChange}
       className="product-search-input"

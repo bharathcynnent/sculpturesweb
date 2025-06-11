@@ -34,7 +34,7 @@ const sculptures = [
 export default function TopSculptures({ onNavigate }) {
   return (
     <div className="sculpture-page">
-      <h1 className="heading">Top Sculptures</h1>
+      <h1 className="heading">Top Selling Sculptures</h1>
       {sculptures.map((item, index) => (
         <div
           className={`sculpture-section ${item.reverse ? "reverse" : ""}`}

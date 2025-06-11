@@ -36,6 +36,76 @@ const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
     }
   };
 
+  const keywordMap = {
+  // Home
+  home: 'Home',
+  homepage: 'Home',
+  main: 'Home',
+  start: 'Home',
+
+  // About
+  about: 'About',
+  company: 'About',
+  info: 'About',
+  team: 'About',
+  story: 'About',
+
+  // Sculptures
+  sculptures: 'Sculptures',
+  statue: 'Sculptures',
+  art: 'Sculptures',
+  stone: 'Sculptures',
+  clay: 'Sculptures',
+  carving: 'Sculptures',
+
+  // Shop
+  shop: 'Shop',
+  buy: 'Shop',
+  purchase: 'Shop',
+  store: 'Shop',
+  products: 'Shop',
+  items: 'Shop',
+  catalog: 'Shop',
+
+  // Work & Architecture
+  work: 'Work & Architecture',
+  architecture: 'Work & Architecture',
+  design: 'Work & Architecture',
+  build: 'Work & Architecture',
+  structure: 'Work & Architecture',
+  'work and architecture': 'Work & Architecture',
+
+  // Contact
+  contact: 'Contact',
+  support: 'Contact',
+  help: 'Contact',
+  reach: 'Contact',
+  message: 'Contact',
+  email: 'Contact',
+  connect: 'Contact',
+};
+
+
+const handleSearch = (e) => {
+  if (e.key === 'Enter') {
+    const term = searchTerm.toLowerCase().trim();
+
+    const matchedKey = Object.keys(keywordMap).find(key => term.includes(key));
+    const matchedLabel = matchedKey ? keywordMap[matchedKey] : null;
+
+    if (matchedLabel && onNavigate[matchedLabel]) {
+      onNavigate[matchedLabel]();
+      setFlippedLink(links.indexOf(matchedLabel));
+      setTimeout(() => setFlippedLink(null), 800);
+      setSearchTerm('');
+      setShowSearchInput(false);
+    } else {
+      onNavigate['Shop'](); // Default to Home if no matc
+      setSearchTerm('');
+    }
+  }
+};
+
   // Added "Work and Architecture" after "Shop"
   const links = ['Home', 'About', 'Sculptures', 'Shop', 'Work & Architecture', 'Contact'];
 
@@ -70,6 +140,7 @@ const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                 onKeyDown={handleSearch}
                 autoFocus
               />
             )}
