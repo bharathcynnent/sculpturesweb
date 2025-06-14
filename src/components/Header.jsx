@@ -97,12 +97,14 @@ const handleSearch = (e) => {
                       return;
                     }
 
-                    const matches = Object.keys(keywordMap).filter((key) =>
-                      key.includes(value)
-                    );
+                    const matches = Object.entries(keywordMap)
+  .filter(([keyword]) => keyword.includes(value))
+  .map(([, label]) => label);
 
-                    const uniqueLabels = [...new Set(matches.map((key) => keywordMap[key]))];
-                    setFilteredSuggestions(uniqueLabels);
+// You may want to remove duplicates
+const uniqueLabels = [...new Set(matches)];
+setFilteredSuggestions(uniqueLabels);
+
                     setShowSuggestions(true);
                   }}
                  onKeyDown={handleSearch}
@@ -133,13 +135,31 @@ const handleSearch = (e) => {
   </ul>
 )}
 
-            <span
+            {/* <span
               className="icon"
               title="Search"
               onClick={() => setShowSearchInput((prev) => !prev)}
             >
               <FaSearch />
-            </span>
+            </span> */}
+            <span
+  className="icon"
+  title="Search"
+  onClick={() => {
+    setShowSearchInput((prev) => {
+      const newState = !prev;
+      if (!newState) {
+        setSearchTerm('');
+        setFilteredSuggestions([]);
+        setShowSuggestions(false);
+      }
+      return newState;
+    });
+  }}
+>
+  <FaSearch />
+</span>
+
           </div>
 
           <span className="icon" title="Cart" onClick={onCartClick}>
