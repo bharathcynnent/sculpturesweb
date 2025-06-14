@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../csscomponents/cart.css";
 import useCartStore from "../stores/cartStore";
-import {  FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart } from "react-icons/fa";
+
 export default function Cart() {
   const [isVisible, setIsVisible] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
@@ -17,12 +18,10 @@ export default function Cart() {
 
   const createWhatsAppMessage = () => {
     if (cartItems.length === 0) return "Your liked products list is empty.";
-
     let message = "Hello, I am interested in the following statues:%0A";
     cartItems.forEach((item, i) => {
       message += `${i + 1}. ${item.title} - Qty: ${item.quantity || 1}, Price: Rs. ${(item.price * (item.quantity || 1)).toFixed(2)}%0A`;
     });
-
     message += `Subtotal: Rs. ${subtotal.toFixed(2)}`;
     return message;
   };
@@ -41,12 +40,21 @@ export default function Cart() {
 
   const closeAlert = () => setShowAlert(false);
 
+  // Lock background scroll on mobile
+  useEffect(() => {
+    if (isVisible && window.innerWidth <= 480) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => (document.body.style.overflow = '');
+  }, [isVisible]);
+
   if (!isVisible) return null;
 
   return (
     <>
       <div className="cart-container">
-        {/* Close button */}
         <button
           className="close-btn"
           onClick={() => setIsVisible(false)}
@@ -72,12 +80,12 @@ export default function Cart() {
                   </span>
                 </div>
                 <button
-  className="remove-btn"
-  onClick={() => {
-    removeFromCart(item.id);
-    unlikeItem(item.id); // Reset the like
-  }}
->
+                  className="remove-btn"
+                  onClick={() => {
+                    removeFromCart(item.id);
+                    unlikeItem(item.id);
+                  }}
+                >
                   ×
                 </button>
               </div>
@@ -93,7 +101,6 @@ export default function Cart() {
         </button>
       </div>
 
-      {/* 🚨 Custom Alert Modal */}
       {showAlert && (
         <div className="alert-overlay">
           <div className="alert-modal">
