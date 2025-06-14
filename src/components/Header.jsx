@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../csscomponents/Header.css';
 import logo from '..//assets/react.svg';
 import { FaSearch, FaShoppingCart, FaUser, FaBars, FaLock } from 'react-icons/fa';
+import keywordMap from '../utils/keywordMap';
 
 const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
   const [flippedLink, setFlippedLink] = useState(null);
@@ -13,7 +14,8 @@ const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [focusField, setFocusField] = useState(null);
-
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const handleClick = (label, index) => {
     setFlippedLink(index);
@@ -36,75 +38,21 @@ const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
     }
   };
 
-  const keywordMap = {
-  // Home
-  home: 'Home',
-  homepage: 'Home',
-  main: 'Home',
-  start: 'Home',
-
-  // About
-  about: 'About',
-  company: 'About',
-  info: 'About',
-  team: 'About',
-  story: 'About',
-
-  // Sculptures
-  sculptures: 'Sculptures',
-  statue: 'Sculptures',
-  art: 'Sculptures',
-  stone: 'Sculptures',
-  clay: 'Sculptures',
-  carving: 'Sculptures',
-
-  // Shop
-  shop: 'Shop',
-  buy: 'Shop',
-  purchase: 'Shop',
-  store: 'Shop',
-  products: 'Shop',
-  items: 'Shop',
-  catalog: 'Shop',
-
-  // Work & Architecture
-  work: 'Work & Architecture',
-  architecture: 'Work & Architecture',
-  design: 'Work & Architecture',
-  build: 'Work & Architecture',
-  structure: 'Work & Architecture',
-  'work and architecture': 'Work & Architecture',
-
-  // Contact
-  contact: 'Contact',
-  support: 'Contact',
-  help: 'Contact',
-  reach: 'Contact',
-  message: 'Contact',
-  email: 'Contact',
-  connect: 'Contact',
-};
-
-
 const handleSearch = (e) => {
-  if (e.key === 'Enter') {
-    const term = searchTerm.toLowerCase().trim();
-
-    const matchedKey = Object.keys(keywordMap).find(key => term.includes(key));
-    const matchedLabel = matchedKey ? keywordMap[matchedKey] : null;
-
-    if (matchedLabel && onNavigate[matchedLabel]) {
+  if (e.key === 'Enter' && filteredSuggestions.length > 0) {
+    const matchedLabel = filteredSuggestions[0];
+    if (onNavigate[matchedLabel]) {
       onNavigate[matchedLabel]();
       setFlippedLink(links.indexOf(matchedLabel));
-      setTimeout(() => setFlippedLink(null), 800);
-      setSearchTerm('');
-      setShowSearchInput(false);
-    } else {
-      onNavigate['Shop'](); // Default to Home if no matc
-      setSearchTerm('');
     }
+    // Reset search
+    setSearchTerm('');
+    setShowSuggestions(false);
+    setFilteredSuggestions([]);
+    setTimeout(() => setFlippedLink(null), 800);
   }
 };
+
 
   // Added "Work and Architecture" after "Shop"
   const links = ['Home', 'About', 'Sculptures', 'Shop', 'Work & Architecture', 'Contact'];
@@ -139,11 +87,52 @@ const handleSearch = (e) => {
                 className="search-input"
                 placeholder="Search..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                    const value = e.target.value.toLowerCase();
+                    setSearchTerm(value);
+
+                    if (value.trim() === '') {
+                      setFilteredSuggestions([]);
+                      setShowSuggestions(false);
+                      return;
+                    }
+
+                    const matches = Object.keys(keywordMap).filter((key) =>
+                      key.includes(value)
+                    );
+
+                    const uniqueLabels = [...new Set(matches.map((key) => keywordMap[key]))];
+                    setFilteredSuggestions(uniqueLabels);
+                    setShowSuggestions(true);
+                  }}
                  onKeyDown={handleSearch}
                 autoFocus
               />
             )}
+            {showSuggestions && (
+  <ul className="suggestions-dropdown">
+    {filteredSuggestions.length > 0 ? (
+      filteredSuggestions.map((label, index) => (
+        <li
+          key={index}
+          className="suggestion-item"
+          onClick={() => {
+            onNavigate[label]();
+            setFlippedLink(links.indexOf(label));
+            setSearchTerm('');
+            setShowSuggestions(false);
+            setTimeout(() => setFlippedLink(null), 800);
+          }}
+        >
+          {label}
+        </li>
+      ))
+    ) : (
+      <li className="suggestion-item no-result">No results found</li>
+    )}
+  </ul>
+)}
+
             <span
               className="icon"
               title="Search"

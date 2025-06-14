@@ -30,6 +30,8 @@ const PurchasedUsers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [userIsLoading, setUserIsLoading] = useState(false);
+  const [deletingIndex, setDeletingIndex] = useState(null);
 
   const resetFormState = () => {
     setForm({
@@ -64,7 +66,7 @@ const PurchasedUsers = () => {
       Swal.fire("Missing Fields", "Please fill in all required fields.", "warning");
       return;
     }
-
+     setUserIsLoading(true);
     try {
       if (isEditMode && form._id) {
         const updated = await api.updatePurchasedUser(form._id, form);
@@ -81,7 +83,9 @@ const PurchasedUsers = () => {
       resetFormState();
     } catch (error) {
       Swal.fire("Error", error.message, "error");
-    }
+    } finally {
+    setUserIsLoading(false);
+  }
   };
 
   const handleDelete = (index) => {
@@ -96,6 +100,7 @@ const PurchasedUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        setDeletingIndex(index);
         try {
           await api.deletePurchasedUser(user._id);
           setUsers(users.filter((_, i) => i !== index));
@@ -103,7 +108,9 @@ const PurchasedUsers = () => {
           Swal.fire("Deleted!", "User has been removed.", "success");
         } catch (error) {
           Swal.fire("Error", error.message, "error");
-        }
+        }finally {
+        setDeletingIndex(null); // End loader
+      }
       }
     });
   };
@@ -193,8 +200,12 @@ const PurchasedUsers = () => {
               </div>
             ))}
 
-            <button type="submit" className="add-user">
-              {isEditMode ? "Update User" : "Add User"}
+            <button type="submit" className="add-user"  disabled={userIsLoading}>
+                {userIsLoading ? (
+    <span className="spinner" />
+  ) : (
+    isEditMode ? "Update User" : "Add User"
+  )}
             </button>
           </form>
         </div>
@@ -243,8 +254,14 @@ const PurchasedUsers = () => {
               <button className="edit-btn" onClick={() => handleEdit(selectedUser.index)}>
                 <FaEdit /> Edit
               </button>
-              <button className="delete-btn" onClick={() => handleDelete(selectedUser.index)}>
-                <FaTrash /> Delete
+              <button className="delete-btn" onClick={() => handleDelete(selectedUser.index)}   disabled={deletingIndex === selectedUser.index}>
+                  {deletingIndex === selectedUser.index ? (
+    <span className="spinner" />
+  ) : (
+    <>
+      <FaTrash /> Delete
+    </>
+  )}
               </button>
             </div>
           </div>

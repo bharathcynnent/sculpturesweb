@@ -29,7 +29,7 @@ const UsersDetails = () => {
         <h2 className="dashboard-title">Users Details</h2>
 
         {loading ? (
-          <div className="spinner"></div>
+          <div className="userspinner"></div>
         ) : usersData.length === 0 ? (
           <p className="empty-message">No user data available.</p>
         ) : (
