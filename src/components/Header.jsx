@@ -38,20 +38,22 @@ const Header = ({ onNavigate, onCartClick, onAdminLoginSuccess }) => {
     }
   };
 
+
+
 const handleSearch = (e) => {
   if (e.key === 'Enter' && filteredSuggestions.length > 0) {
-    const matchedLabel = filteredSuggestions[0];
-    if (onNavigate[matchedLabel]) {
-      onNavigate[matchedLabel]();
-      setFlippedLink(links.indexOf(matchedLabel));
+    const { label } = filteredSuggestions[0];
+    if (onNavigate[label]) {
+      onNavigate[label]();
+      setFlippedLink(links.indexOf(label));
     }
-    // Reset search
     setSearchTerm('');
     setShowSuggestions(false);
     setFilteredSuggestions([]);
     setTimeout(() => setFlippedLink(null), 800);
   }
 };
+
 
 
   // Added "Work and Architecture" after "Shop"
@@ -87,61 +89,54 @@ const handleSearch = (e) => {
                 className="search-input"
                 placeholder="Search..."
                 value={searchTerm}
-                onChange={(e) => {
-                    const value = e.target.value.toLowerCase();
-                    setSearchTerm(value);
+onChange={(e) => {
+  const value = e.target.value.toLowerCase();
+  setSearchTerm(value);
 
-                    if (value.trim() === '') {
-                      setFilteredSuggestions([]);
-                      setShowSuggestions(false);
-                      return;
-                    }
+  if (value.trim() === '') {
+    setFilteredSuggestions([]);
+    setShowSuggestions(false);
+    return;
+  }
 
-                    const matches = Object.entries(keywordMap)
-  .filter(([keyword]) => keyword.includes(value))
-  .map(([, label]) => label);
+  const matches = Object.entries(keywordMap)
+    .filter(([keyword]) => keyword.toLowerCase().includes(value))
+    .map(([keyword, label]) => ({ keyword, label }));
 
-// You may want to remove duplicates
-const uniqueLabels = [...new Set(matches)];
-setFilteredSuggestions(uniqueLabels);
+  setFilteredSuggestions(matches);
+  setShowSuggestions(true);
+}}
 
-                    setShowSuggestions(true);
-                  }}
                  onKeyDown={handleSearch}
                 autoFocus
               />
             )}
             {showSuggestions && (
   <ul className="suggestions-dropdown">
-    {filteredSuggestions.length > 0 ? (
-      filteredSuggestions.map((label, index) => (
-        <li
-          key={index}
-          className="suggestion-item"
-          onClick={() => {
+  {filteredSuggestions.length > 0 ? (
+    filteredSuggestions.map(({ keyword, label }, index) => (
+      <li
+        key={index}
+        className="suggestion-item"
+        onClick={() => {
+          if (onNavigate[label]) {
             onNavigate[label]();
             setFlippedLink(links.indexOf(label));
-            setSearchTerm('');
-            setShowSuggestions(false);
-            setTimeout(() => setFlippedLink(null), 800);
-          }}
-        >
-          {label}
-        </li>
-      ))
-    ) : (
-      <li className="suggestion-item no-result">No results found</li>
-    )}
-  </ul>
-)}
+          }
+          setSearchTerm('');
+          setShowSuggestions(false);
+          setTimeout(() => setFlippedLink(null), 800);
+        }}
+      >
+        {keyword}
+      </li>
+    ))
+  ) : (
+    <li className="suggestion-item no-result">No results found</li>
+  )}
+</ul>
 
-            {/* <span
-              className="icon"
-              title="Search"
-              onClick={() => setShowSearchInput((prev) => !prev)}
-            >
-              <FaSearch />
-            </span> */}
+)}
             <span
   className="icon"
   title="Search"

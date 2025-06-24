@@ -21,7 +21,6 @@ const keywordMap = {
   story: 'About',
   histroy: 'About',
 
-  // Sculptures
   sculptures: 'Shop',
   sculpture: 'Shop',
   sculture: 'Shop',
@@ -39,7 +38,6 @@ const keywordMap = {
   carving: 'Shop',
   craving: 'Shop',
 
-  // Shop
   shop: 'Shop',
   shopp: 'Shop',
   shpo: 'Shop',
