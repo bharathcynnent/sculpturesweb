@@ -1,40 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import {
-  FaPlusCircle,
-  FaUsers,
-  FaEnvelope,
-  FaPhone,
-  FaBoxOpen,
-  FaDollarSign,
-  FaCalendarAlt,
-  FaEdit,
-  FaTrash,
+  FaPlusCircle, FaUsers, FaEnvelope, FaPhone,
+  FaBoxOpen, FaDollarSign, FaCalendarAlt,
+  FaEdit, FaTrash
 } from "react-icons/fa";
 import "../admincsscomponents/PurchasedUsers.css";
 import api from "../services/api";
 
 const PurchasedUsers = () => {
   const [users, setUsers] = useState([]);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    address: "",
-    phone: "",
-    comments: "",
-    productName: "",
-    price: "",
-    deliveryDate: "",
-  });
-  const [activeTab, setActiveTab] = useState("");
+  const [form, setForm] = useState(getEmptyForm());
+  const [activeTab, setActiveTab] = useState("list");
   const [selectedUser, setSelectedUser] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [userIsLoading, setUserIsLoading] = useState(false);
   const [deletingIndex, setDeletingIndex] = useState(null);
 
-  const resetFormState = () => {
-    setForm({
+  function getEmptyForm() {
+    return {
       name: "",
       email: "",
       address: "",
@@ -43,11 +28,14 @@ const PurchasedUsers = () => {
       productName: "",
       price: "",
       deliveryDate: "",
-    });
-    setIsEditMode(false);
-    setEditIndex(null);
-    setActiveTab("list");
-  };
+      purchaseDate: "",
+      paymentMethod: "",
+      quantity: "",
+      status: "",
+    };
+  }
+
+  const todayDate = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     api.getAllPurchasedUsers().then(setUsers).catch(console.error);
@@ -60,13 +48,21 @@ const PurchasedUsers = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, phone, productName, price, deliveryDate } = form;
 
-    if (!name || !phone || !productName || !price || !deliveryDate) {
-      Swal.fire("Missing Fields", "Please fill in all required fields.", "warning");
-      return;
+    const requiredFields = [
+      "name", "phone", "productName", "price",
+      "deliveryDate", "purchaseDate", "paymentMethod",
+      "quantity", "status","Delivery Address"
+    ];
+
+    for (let field of requiredFields) {
+      if (!form[field]) {
+        Swal.fire("Missing Fields", "Please fill in all required fields.", "warning");
+        return;
+      }
     }
-     setUserIsLoading(true);
+
+    setUserIsLoading(true);
     try {
       if (isEditMode && form._id) {
         const updated = await api.updatePurchasedUser(form._id, form);
@@ -84,8 +80,8 @@ const PurchasedUsers = () => {
     } catch (error) {
       Swal.fire("Error", error.message, "error");
     } finally {
-    setUserIsLoading(false);
-  }
+      setUserIsLoading(false);
+    }
   };
 
   const handleDelete = (index) => {
@@ -108,9 +104,9 @@ const PurchasedUsers = () => {
           Swal.fire("Deleted!", "User has been removed.", "success");
         } catch (error) {
           Swal.fire("Error", error.message, "error");
-        }finally {
-        setDeletingIndex(null); // End loader
-      }
+        } finally {
+          setDeletingIndex(null);
+        }
       }
     });
   };
@@ -124,7 +120,33 @@ const PurchasedUsers = () => {
     setActiveTab("add");
   };
 
-  const todayDate = new Date().toISOString().split("T")[0];
+  const resetFormState = () => {
+    setForm(getEmptyForm());
+    setIsEditMode(false);
+    setEditIndex(null);
+    setActiveTab("list");
+  };
+
+  const formFields = [
+    { label: "Full Name", name: "name", required: true },
+    { label: "Email", name: "email", type: "email" },
+    { label: "Delivery Address", name: "Delivery Address", required: true},
+    { label: "Phone", name: "phone", required: true },
+    { label: "Comments", name: "comments", type: "textarea" },
+    { label: "Product Name", name: "productName", required: true },
+    { label: "Price", name: "price", type: "number", required: true },
+    { label: "Quantity", name: "quantity", type: "number", required: true },
+    { label: "Delivery Date", name: "deliveryDate", type: "date", required: true, min: todayDate },
+    { label: "Purchase Date", name: "purchaseDate", type: "date", required: true, min: "2020-01-01" },
+    {
+      label: "Payment Method", name: "paymentMethod", type: "select", required: true,
+      options: ["Cash", "UPI", "Credit Card", "Net Banking"]
+    },
+    {
+      label: "Status", name: "status", type: "select", required: true,
+      options: ["Delivered", "Pending", "Returned"]
+    }
+  ];
 
   return (
     <div className="page-container">
@@ -134,16 +156,7 @@ const PurchasedUsers = () => {
         <button className={activeTab === "add" ? "active" : ""} onClick={() => {
           setActiveTab("add");
           setIsEditMode(false);
-          setForm({
-            name: "",
-            email: "",
-            address: "",
-            phone: "",
-            comments: "",
-            productName: "",
-            price: "",
-            deliveryDate: "",
-          });
+          setForm(getEmptyForm());
         }}>
           <FaPlusCircle /> Add User
         </button>
@@ -156,18 +169,7 @@ const PurchasedUsers = () => {
         <div className="form-section fadeIn">
           <h3>{isEditMode ? "Edit User" : "Add New User"}</h3>
           <form className="add-user-form" onSubmit={handleSubmit}>
-            {[
-              { label: "Full Name", name: "name", required: true },
-              { label: "Email", name: "email", type: "email", },
-              { label: "Address", name: "address" },
-              { label: "Phone", name: "phone", required: true },
-              { label: "Comments", name: "comments", type: "textarea" },
-              { label: "Product Name", name: "productName", required: true },
-              { label: "Price", name: "price", type: "number", required: true },
-              {
-                label: "Delivery Date", name: "deliveryDate", type: "date", required: true, min: todayDate
-              },
-            ].map((field) => (
+            {formFields.map((field) => (
               <div className="input-wrapper" key={field.name}>
                 <label className="form-label">
                   {field.label}
@@ -181,6 +183,19 @@ const PurchasedUsers = () => {
                     value={form[field.name]}
                     onChange={handleChange}
                   />
+                ) : field.type === "select" ? (
+                  <select
+                    className="add-user-input"
+                    name={field.name}
+                    value={form[field.name]}
+                    onChange={handleChange}
+                    required={field.required}
+                  >
+                    <option value="">Select {field.label}</option>
+                    {field.options.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
                 ) : (
                   <input
                     className="add-user-input"
@@ -188,11 +203,12 @@ const PurchasedUsers = () => {
                     name={field.name}
                     placeholder={field.label}
                     value={
-                      field.name === "deliveryDate"
-                        ? form.deliveryDate?.slice(0, 10)
+                      ["deliveryDate", "purchaseDate"].includes(field.name)
+                        ? form[field.name]?.slice(0, 10)
                         : form[field.name]
                     }
                     onChange={handleChange}
+                    onFocus={(e) => e.target.showPicker && e.target.showPicker()}
                     required={field.required}
                     min={field.min || undefined}
                   />
@@ -200,12 +216,8 @@ const PurchasedUsers = () => {
               </div>
             ))}
 
-            <button type="submit" className="add-user"  disabled={userIsLoading}>
-                {userIsLoading ? (
-    <span className="spinner" />
-  ) : (
-    isEditMode ? "Update User" : "Add User"
-  )}
+            <button type="submit" className="add-user" disabled={userIsLoading}>
+              {userIsLoading ? <span className="spinner" /> : isEditMode ? "Update User" : "Add User"}
             </button>
           </form>
         </div>
@@ -229,7 +241,7 @@ const PurchasedUsers = () => {
                   <p><FaEnvelope /> {user.email || "N/A"}</p>
                   <p><FaPhone /> {user.phone}</p>
                   <p><FaBoxOpen /> {user.productName}</p>
-                  <p><FaDollarSign />{user.price}</p>
+                  <p><FaDollarSign /> {user.price}</p>
                 </div>
               ))}
             </div>
@@ -244,24 +256,32 @@ const PurchasedUsers = () => {
             <h3>{selectedUser.name}</h3>
             <p><strong>Email:</strong> {selectedUser.email || "N/A"}</p>
             <p><strong>Phone:</strong> {selectedUser.phone}</p>
-            <p><strong>Address:</strong> {selectedUser.address || "N/A"}</p>
+            <p><strong>Delivery Address:</strong> {selectedUser.address || "N/A"}</p>
             <p><strong>Comments:</strong> {selectedUser.comments || "None"}</p>
             <p><strong>Product:</strong> {selectedUser.productName}</p>
-            <p><strong>Price:</strong>{selectedUser.price}</p>
+            <p><strong>Price:</strong> {selectedUser.price}</p>
+            <p><strong>Quantity:</strong> {selectedUser.quantity}</p>
+            <p><strong>Payment:</strong> {selectedUser.paymentMethod}</p>
+            <p><strong>Status:</strong> {selectedUser.status}</p>
             <p><strong><FaCalendarAlt /> Delivery Date:</strong> {selectedUser.deliveryDate?.slice(0, 10)}</p>
+            <p><strong><FaCalendarAlt /> Purchase Date:</strong> {selectedUser.purchaseDate?.slice(0, 10)}</p>
 
             <div className="popup-actions">
               <button className="edit-btn" onClick={() => handleEdit(selectedUser.index)}>
                 <FaEdit /> Edit
               </button>
-              <button className="delete-btn" onClick={() => handleDelete(selectedUser.index)}   disabled={deletingIndex === selectedUser.index}>
-                  {deletingIndex === selectedUser.index ? (
-    <span className="spinner" />
-  ) : (
-    <>
-      <FaTrash /> Delete
-    </>
-  )}
+              <button
+                className="delete-btn"
+                onClick={() => handleDelete(selectedUser.index)}
+                disabled={deletingIndex === selectedUser.index}
+              >
+                {deletingIndex === selectedUser.index ? (
+                  <span className="spinner" />
+                ) : (
+                  <>
+                    <FaTrash /> Delete
+                  </>
+                )}
               </button>
             </div>
           </div>

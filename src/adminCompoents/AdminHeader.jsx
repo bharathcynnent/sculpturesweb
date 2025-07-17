@@ -4,6 +4,7 @@ import {
   FaEnvelope,
   FaBoxOpen,
   FaUsers,
+  FaChartBar,
   FaSignOutAlt,
 } from 'react-icons/fa';
 import '../admincsscomponents/AdminHeader.css';
@@ -20,6 +21,7 @@ const AdminHeader = ({ onNavigate, onLogout }) => {
     <>
       <div className="admin-header">
         <div className="nav-buttons">
+          <NavButton icon={<FaChartBar />} label="Charts & Stats" onClick={() => onNavigate('admin-charts')} />         
           <NavButton icon={<FaTachometerAlt />} label="Users Details" onClick={() => onNavigate('admin-dashboard')} />
           <NavButton icon={<FaEnvelope />} label="Contacted Users" onClick={() => onNavigate('admin-emails')} />
           <NavButton icon={<FaBoxOpen />} label="Subscribed Users" onClick={() => onNavigate('admin-products')} />

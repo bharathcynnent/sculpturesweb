@@ -4,9 +4,10 @@ import UsersDetails from '../pages/UsersDetails';
 import ContactedUsers from '../pages/ContactedUsers';
 import SubscribedUsers from '../pages/SubscribedUsers';
 import PurchasedUsers from '../pages/PurchasedUsers';
+import AdminCharts from '../adminCompoents/AdminCharts';
 
 const AdminPage = ({ onLogout }) => {
-  const [activePage, setActivePage] = useState('admin-dashboard');
+  const [activePage, setActivePage] = useState('admin-charts');
 
   const renderContent = () => {
     switch (activePage) {
@@ -18,6 +19,8 @@ const AdminPage = ({ onLogout }) => {
         return <SubscribedUsers />;
       case 'admin-users':
         return <PurchasedUsers />;
+      case 'admin-charts':
+        return <AdminCharts/>;
       default:
         return <div>Select a section</div>;
     }

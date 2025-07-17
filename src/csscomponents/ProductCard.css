@@ -46,3 +46,19 @@
   color: red;
   background-color: #ffe6e6;
 }
+.heart-icon.pop {
+  animation: heartPop 1s ease;
+  display: inline-block;
+}
+
+@keyframes heartPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

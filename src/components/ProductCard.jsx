@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { FaWhatsapp, FaHeart, FaRegHeart } from 'react-icons/fa';
 import '../csscomponents/ProductCard.css';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -9,12 +9,13 @@ import useCartStore from '../stores/cartStore';
 const ProductCard = ({ product }) => {
   const { title, image, price, oldPrice, badge, id } = product;
   const [hovered, setHovered] = useState(false);
+  const [pop, setPop] = useState(false);
 
   const likeItem = useCartStore((state) => state.likeItem);
-  const isLiked = useCartStore((state) => state.isLiked);
   const unlikeItem = useCartStore((state) => state.unlikeItem);
   const addToCart = useCartStore((state) => state.addToCart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const isLiked = useCartStore((state) => state.likedItems.has(id));
 
   const handleBuyNow = () => {
     const message = `Hi, I'm interested in "${title}" statue it priced at ₹${price.toLocaleString()}`;
@@ -22,10 +23,19 @@ const ProductCard = ({ product }) => {
     window.open(whatsappUrl, '_blank');
   };
 
+  useEffect(() => {
+  if (pop) {
+    const timer = setTimeout(() => setPop(false), 300); // match CSS animation duration
+    return () => clearTimeout(timer);
+  }
+}, [pop]);
+
+
   const handleLike = () => {
-    if (!isLiked(id)) {
+    if (!isLiked) {
       likeItem(id);
       addToCart(product);
+       setPop(true);
     } else {
       unlikeItem(id);
       removeFromCart(id);
@@ -46,10 +56,13 @@ const ProductCard = ({ product }) => {
               <FaWhatsapp /> Buy Now
             </button>
             <button
-              className={`like-btn ${isLiked(id) ? 'liked' : ''}`}
+              className={`like-btn ${isLiked ? 'liked' : ''}`}
               onClick={handleLike}
             >
-              {isLiked(id) ? <FaHeart /> : <FaRegHeart />} {isLiked(id) ? 'Liked' : 'Like'}
+              <span className={`heart-icon ${pop ? 'pop' : ''}`}>
+    {isLiked ? <FaHeart /> : <FaRegHeart />}
+  </span>
+  {isLiked ? 'Liked' : 'Like'}
             </button>
           </div>
         )}

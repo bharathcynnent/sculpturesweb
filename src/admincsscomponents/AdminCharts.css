@@ -1,0 +1,58 @@
+.admin-chart-container {
+  padding: 40px 20px;
+  background-color: #f7f4ed;
+  min-height: 100vh;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.admin-chart-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #2d2e5f;
+}
+
+.chart-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.chart-card {
+  /* background-color: #e0d8cf;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); */
+  padding: 20px;
+  transition: transform 0.3s ease;
+  flex: 1 1 45%;
+  max-width: 45%;
+  box-sizing: border-box;
+}
+
+/* Hover effect */
+.chart-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Tablet: stack one below another */
+@media (max-width: 1024px) {
+  .chart-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* Smaller devices: reduce padding, font size */
+@media (max-width: 600px) {
+  .admin-chart-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .chart-card {
+    padding: 0px;
+  }
+}

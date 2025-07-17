@@ -1,0 +1,52 @@
+.subscribed-chart-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #e0d8cf;
+  border-radius: 14px;
+}
+
+.subscribed-chart-title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #4b3d33;
+}
+
+.subscribed-filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  background: #2d2e5f;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.filter-btn:hover {
+  background: #ffffff;
+  color: #2d2e5f;
+  border-color: black;
+  transform: scale(1.05);
+}
+
+.filter-btn.active {
+  background: #ffffff;
+  color: black;
+  font-weight: bold;
+}
+
+.bar-chart-wrapper {
+  width: 100%;
+  height: 400px;
+}
